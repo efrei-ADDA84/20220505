@@ -25,4 +25,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: frimpongefrei/api:1.0.0
+        tags: frimpongefrei/api:2.0.0
