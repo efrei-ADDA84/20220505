@@ -21,7 +21,7 @@ jobs:
         username: ${{ secrets.USERNAME_DOCKERHUB }}
         password: ${{ secrets.TOKEN_DOCKERHUB }}
     - name: Ckecking des Lint errors avec Hadolint
-    - uses: hadolint/hadolint-action@v3.1.0
+      uses: hadolint/hadolint-action@v3.1.0
       with:
         dockerfile: Dockerfile
     - name: Construction du container
