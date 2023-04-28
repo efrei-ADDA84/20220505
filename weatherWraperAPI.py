@@ -2,9 +2,6 @@ from os import environ
 import requests
 from fastapi import FastAPI
 
-API_Key = "3d483ba26d36dfb88f6ae88729d42f51"
-#environ.get("API_KEY")
-
 # ================ fastAPI setup ================
 
 app = FastAPI()
