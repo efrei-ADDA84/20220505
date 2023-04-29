@@ -182,10 +182,55 @@ CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "
 > docker pull frimpongefrei/api:2.0.0
 > docker run -p 8081:8081 --env API_KEY=myApiKey frimpongefrei/api:2.0.0
 ```
-Dans un autre terminal, exécuter des commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.754175`):
+Dans un autre terminal, exécuter des commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.754175`), on entre la commande suivante qui génère un résultat au format JSON:
 
 ```
 > curl "http://localhost:8081/?lat=5.902785&lon=102.754175"
+  
+{
+    "coord": {
+        "lon": 102.7542,
+        "lat": 5.9028
+    },
+    "weather": [
+        {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 299.22,
+        "feels_like": 299.22,
+        "temp_min": 299.22,
+        "temp_max": 299.22,
+        "pressure": 1007,
+        "humidity": 78,
+        "sea_level": 1007,
+        "grnd_level": 980
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 2.11,
+        "deg": 159,
+        "gust": 2.25
+    },
+    "clouds": {
+        "all": 100
+    },
+    "dt": 1682810347,
+    "sys": {
+        "country": "MY",
+        "sunrise": 1682808993,
+        "sunset": 1682853348
+    },
+    "timezone": 28800,
+    "id": 1736405,
+    "name": "Jertih",
+    "cod": 200
+}
 ```
 
 <br />
