@@ -1,7 +1,7 @@
 # **DevOps TP2 - GitHub Actions**
 
 
-<image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpJDw7JAy7mQ_Av8IU14GcsPBBdrwfZV8cHQ&usqp=CAU" width=750 center>
+<image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSreLXKBslOSjkfYebdA_FQJbwkANiBmtNpIg&usqp=CAU" width=750 center>
 
 <br />
 
