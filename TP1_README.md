@@ -88,7 +88,7 @@ CONTAINER_NAME=api:1.0.0
 Pour exécuter le fichier, pocéder comme suit:
 ```
 > chmod u+x setup.sh
-> docker log -u myusername
+> docker login -u myusername
 > sh setup.sh
 ```
 
