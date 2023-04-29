@@ -1,11 +1,11 @@
 # **DevOps TP2 - GitHub Actions**
 
 
-<image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSreLXKBslOSjkfYebdA_FQJbwkANiBmtNpIg&usqp=CAU" width=750 center>
+<image src="https://www.padok.fr/hubfs/Imported_Blog_Media/github-actions-tutorial.webp" width=1000 center>
 
 <br />
 
-[<img src="https://img.shields.io/badge/GitHub Actions-CI/CD Workflow-yellow.svg?logo=githubactions">](https://github.com/efrei-ADDA84/20220505/actions/workflows/docker-image.yml)                                             [<img src="https://img.shields.io/badge/docker registry-frimpongefrei/api:1.0.0-blue.svg?logo=docsdotrs">](https://hub.docker.com/r/frimpongefrei/api/tags)                                              [<img src="https://img.shields.io/badge/PyPI-requests:2.29.0-important.svg?logo=pypi">](https://pypi.org/project/requests/)                               [<img src="https://img.shields.io/badge/fastAPI-0.95.1-blue.svg?logo=fastapi">](https://fastapi.tiangolo.com/)                               [<img src="https://img.shields.io/badge/uvicorn-0.22.0-red.svg?logo=gunicorn">](https://www.uvicorn.org/)                                         [<img src="https://img.shields.io/badge/dockerhub-hadolint/hadolint-blueviolet.svg?logo=docker">](https://hub.docker.com/r/hadolint/hadolint)                                              [<img src="https://img.shields.io/badge/Homebrew-aquasecurity/trivy/trivy-red.svg?logo=homebrew">](https://aquasecurity.github.io/trivy/v0.18.3/installation/)
+[<img src="https://img.shields.io/badge/GitHub Actions-CI/CD Workflow-yellow.svg?logo=githubactions">](https://github.com/efrei-ADDA84/20220505/actions/workflows/docker-image.yml)                                             [<img src="https://img.shields.io/badge/docker registry-frimpongefrei/api:1.0.0-blue.svg?logo=docsdotrs">](https://hub.docker.com/r/frimpongefrei/api/tags)                                              [<img src="https://img.shields.io/badge/PyPI-requests:2.29.0-important.svg?logo=pypi">](https://pypi.org/project/requests/)                               [<img src="https://img.shields.io/badge/fastAPI-0.95.1-blue.svg?logo=fastapi">](https://fastapi.tiangolo.com/)                               [<img src="https://img.shields.io/badge/uvicorn-0.22.0-red.svg?logo=gunicorn">](https://www.uvicorn.org/)                                         [<img src="https://img.shields.io/badge/dockerhub-hadolint/hadolint-blueviolet.svg?logo=docker">](https://hub.docker.com/r/hadolint/hadolint)
 
 
 <br />
@@ -181,6 +181,11 @@ CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "
 ```
 > docker pull frimpongefrei/api:2.0.0
 > docker run -p 8081:8081 --env API_KEY=myApiKey frimpongefrei/api:2.0.0
+```
+Dans un autre terminal, exécuter des commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.754175`):
+
+```
+> curl "http://localhost:8081/?lat=5.902785&lon=102.754175"
 ```
 
 <br />
