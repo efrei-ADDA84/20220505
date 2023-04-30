@@ -25,11 +25,11 @@ Ce projet vise à automatiser le déploiement d'une image `Docker` d'une part et
 
 > ### **<u>Configurer un Workflow GitHub Actions</u>**
 
-> Préalablement, se connecter à son compte DockerHub et obtenir `l'API TOKEN` vous permettant de lire, écrire et supprimer. Pour ce faire, sur votre espace `DockerHub`, aller à `Account settings > Security > New Access Token` et entrer les informations necessaires puis copier l'API TOKEN dans un lieu sûr. Ensuite sur votre repository `GitHub`, aller à `Settings > Secrets and variables > Actions > New repository secret`. Nommez le token `USERNAME_DOCKERHUB` et donnez lui en valeur votre nom d'utilisateur DockerHub. Répétez la même opération avec `TOKEN_DOCKERHUB` comme nom de TOKEN et l'API TOKEN comme valeur.
+Préalablement, se connecter à son compte DockerHub et obtenir `l'API TOKEN` vous permettant de lire, écrire et supprimer. Pour ce faire, sur votre espace `DockerHub`, aller à `Account settings > Security > New Access Token` et entrer les informations necessaires puis copier l'API TOKEN dans un lieu sûr. Ensuite sur votre repository `GitHub`, aller à `Settings > Secrets and variables > Actions > New repository secret`. Nommez le token `USERNAME_DOCKERHUB` et donnez lui en valeur votre nom d'utilisateur DockerHub. Répétez la même opération avec `TOKEN_DOCKERHUB` comme nom de TOKEN et l'API TOKEN comme valeur.
 
-> En se positionnant dans notre repository GitHub, sélectionner l'onglet `Actions > New workflow > set up a workflow yourself`, puis coller le code suivant dans l'espace de code:
+En se positionnant dans notre repository GitHub, sélectionner l'onglet `Actions > New workflow > set up a workflow yourself`, puis coller le code suivant dans l'espace de code:
 
-```
+```yml
 name: Automatisation du déploiement du container sur DockerHub
 
 on:
@@ -71,9 +71,9 @@ Ensuite nommer le fichier `docker-image.yml`. Et effectuer l'opération de `Star
 
 > ### **<u>Transformation du wrapper en API</u>**
 
-> Notre wrapper étant écrit en Python, nous utiliserons le module Python `fastAPI` pour transformer notre wrapper en API. Le code suivant transforme le wrapper en API:
+Notre wrapper étant écrit en Python, nous utiliserons le module Python `fastAPI` pour transformer notre wrapper en API. Le code suivant transforme le wrapper en API:
 
-```
+```python
 from os import environ
 import requests
 from fastapi import FastAPI
@@ -96,9 +96,9 @@ async def read_item(lat:float, lon:float):
 
 > ### **<u>*Requirements.txt*</u>**
 
-> Il nous faut définir un fichier `requirements.txt` afin de spécifier au `Dockerfile` les packages nécessaires à l'exécution du fichier  `weatherWraperAPI.py`. Le contenu du fichier `requirements.txt` est le suivant:
+Il nous faut définir un fichier `requirements.txt` afin de spécifier au `Dockerfile` les packages nécessaires à l'exécution du fichier  `weatherWraperAPI.py`. Le contenu du fichier `requirements.txt` est le suivant:
 
-```
+```txt
 fastapi==0.95.1
 uvicorn==0.22.0
 requests==2.29.0
@@ -108,34 +108,49 @@ requests==2.29.0
 
 > ### **<u>*Dockerfile*</u>**
 
-> Le Dockerfile contient des instructions à exécutions séquentiels pour créer le container final. On distingue:
+Le Dockerfile contient des instructions à exécutions séquentiels pour créer le container final. On distingue:
 
-```
+```dockerfile
 FROM python:3.11
 ```
 - Cette instruction permet de spécifier l'image Docker à partir de laquelle notre container sera construite (ici l'image `python:3.11`).
 
-```
+```dockerfile
 WORKDIR /app
 ```
 - Cette instruction spécifie le répertoire courant par défaut du container (ici `/app`).
 
-```
+```dockerfile
 COPY weatherWraperAPI.py /app
 COPY requirements.txt /app
 ```
 - Cette instruction effectue une copie du fichier `weatherWraper.py` dans le répertoire courant par défaut du container. Idem pour le fichier `requirements.txt`
 
-```
+```dockerfile
 RUN pip install --no-cache-dir -r requirements.txt
 ```
 
 - Cette instruction exécute la commande d'installation des packages Python dans le fichier `requirements.txt`. Le paramètre `--no-cache-dir` permet de nettoyer les métadonnées en cache générées par la commande (utile pour libérer de l'espace mémoire).
 
-```
+```dockerfile
 CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "--reload"]
 ```
 - Cette instruction exécute la commande `uvicorn weatherWraperAPI:app --port 8081 --host 0.0.0.0 --reload` qui démarre un serveur en background au port $8080$ et l'actualise en temps réel.
+
+Voici le contenu du Dockerfile du TP2
+
+```dockerfile
+FROM python:3.11
+
+WORKDIR /app
+
+COPY weatherWraperAPI.py /app
+COPY requirements.txt /app
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "--reload"]
+```
 
 <br />
 
@@ -144,7 +159,7 @@ CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "
 <br />
 
 ## **EXÉCUTION**
-> À chaque `push` sur le repository GitHub, le `Workflow GitHub Actions` automatise la construction et le déploiement des images Docker dans le DockerHub.
+À chaque `push` sur le repository GitHub, le `Workflow GitHub Actions` automatise la construction et le déploiement des images Docker dans le DockerHub.
 
 <br />
 
@@ -155,9 +170,9 @@ CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "
 ## **TESTS TECHNIQUES**
 
 > ### **<u>Lint Errors</u>**
-> Le test des Lint errors est intégré au code de configuration `.yml` du `Workflow GitHub Actions`. Le code est le suivant:
+Le test des Lint errors est intégré au code de configuration `.yml` du `Workflow GitHub Actions`. Le code est le suivant:
 
-```
+```yml
 - name: Ckecking des Lint errors avec Hadolint
       uses: hadolint/hadolint-action@v3.1.0
       with:
@@ -174,16 +189,16 @@ CMD ["uvicorn", "weatherWraperAPI:app", "--port", "8081", "--host", "0.0.0.0", "
 <br />
 
 ## **DOCKER HUB**
-> L'image Docker de ce projet est `frimpongefrei/api:2.0.0`
+L'image Docker de ce projet est `frimpongefrei/api:2.0.0`
 
-> Pour exécuter le projet:
-```
+Pour exécuter le projet:
+```sh
 > docker pull frimpongefrei/api:2.0.0
 > docker run -p 8081:8081 --env API_KEY=myApiKey frimpongefrei/api:2.0.0
 ```
 Dans un autre terminal, exécuter des commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.754175`), on entre la commande suivante qui génère un résultat au format JSON:
 
-```
+```sh
 > curl "http://localhost:8081/?lat=5.902785&lon=102.754175"
   
 {
