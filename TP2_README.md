@@ -3,8 +3,6 @@
 
 <image src="https://www.padok.fr/hubfs/Imported_Blog_Media/github-actions-tutorial.webp" width=1000 center>
 
-<br />
-
 [<img src="https://img.shields.io/badge/GitHub Actions-CI/CD Workflow-yellow.svg?logo=githubactions">](https://github.com/efrei-ADDA84/20220505/actions/workflows/docker-image.yml)                                             [<img src="https://img.shields.io/badge/docker registry-frimpongefrei/api:2.0.0-blue.svg?logo=docsdotrs">](https://hub.docker.com/r/frimpongefrei/api/tags)                                              [<img src="https://img.shields.io/badge/PyPI-requests:2.29.0-important.svg?logo=pypi">](https://pypi.org/project/requests/)                               [<img src="https://img.shields.io/badge/fastAPI-0.95.1-blue.svg?logo=fastapi">](https://fastapi.tiangolo.com/)                               [<img src="https://img.shields.io/badge/uvicorn-0.22.0-red.svg?logo=gunicorn">](https://www.uvicorn.org/)                       ![Deploy badge](https://github.com/efrei-ADDA84/20220505/actions/workflows/docker-image.yml/badge.svg?event=push)                    [<img src="https://img.shields.io/badge/dockerhub-hadolint/hadolint-blueviolet.svg?logo=docker">](https://hub.docker.com/r/hadolint/hadolint)                                       
 
 <br />
