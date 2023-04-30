@@ -80,6 +80,8 @@ from fastapi import FastAPI
 
 # ================ fastAPI setup ================
 
+API_Key=environ.get("API_KEY")
+
 app = FastAPI()
 
 @app.get("/")
