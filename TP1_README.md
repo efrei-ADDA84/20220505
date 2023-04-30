@@ -2,8 +2,6 @@
 
 <image src="https://www.howtogeek.com/wp-content/uploads/csit/2021/04/075c8694.jpeg?height=200p&trim=2,2,2,2&crop=16:9" width=800 center>
 
-<br />
-
 [<img src="https://img.shields.io/badge/dockerhub-python:3.11-yellow.svg?logo=docker">](https://hub.docker.com/_/python)                                             [<img src="https://img.shields.io/badge/docker registry-frimpongefrei/api:1.0.0-blue.svg?logo=docsdotrs">](https://hub.docker.com/r/frimpongefrei/api/tags)                                              [<img src="https://img.shields.io/badge/PyPI-requests:2.29.0-important.svg?logo=pypi">](https://pypi.org/project/requests/)                                              [<img src="https://img.shields.io/badge/dockerhub-hadolint/hadolint-blueviolet.svg?logo=docker">](https://hub.docker.com/r/hadolint/hadolint)                                              [<img src="https://img.shields.io/badge/Homebrew-aquasecurity/trivy/trivy-red.svg?logo=homebrew">](https://aquasecurity.github.io/trivy/v0.18.3/installation/)
 
 <br />
