@@ -194,7 +194,7 @@ L'image Docker de ce projet est `frimpongefrei/api:2.0.0`
 Pour exécuter le projet:
 ```sh
 > docker pull frimpongefrei/api:2.0.0
-> docker run -p 8081:8081 --env API_KEY=myApiKey frimpongefrei/api:2.0.0
+> docker run -p 8081:8081 --env API_KEY=**** frimpongefrei/api:2.0.0
 ```
 Dans un autre terminal, exécuter des commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.754175`), on entre la commande suivante qui génère un résultat au format JSON:
 
