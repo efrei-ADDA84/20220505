@@ -23,23 +23,23 @@ Ce projet vise à créer un programme (un wrapper) qui retourne la météo d'un 
 ## **REVUE TECHNIQUE**
 
 > ### **<u>Création du wrapper</u> (fichier *weatherWraper.py*)**
-> Notre Wrapper est un programme `Python` (le fichier `weatherWraper.py`) qui utilise des appels API pour obtenir les informations météo selon les coordonnées géographiques. Notamment, le package `requests` de python permet de réaliser ces appels API. Le wrapper, grâce au module `sys.argv`, permet de prendre en compte des valeurs passées en ligne de commande. Cette propriété du wrapper permettra de lui associer les variables d'environnement du Dockerfile. Les arguments pris en ligne de commande devront être obligatoirement disposés dans l'ordre suivant: LAT -> LONG -> API_KEY. L'exécution type est la suivante :
+Notre Wrapper est un programme `Python` (le fichier `weatherWraper.py`) qui utilise des appels API pour obtenir les informations météo selon les coordonnées géographiques. Notamment, le package `requests` de python permet de réaliser ces appels API. Le wrapper, grâce au module `sys.argv`, permet de prendre en compte des valeurs passées en ligne de commande. Cette propriété du wrapper permettra de lui associer les variables d'environnement du Dockerfile. Les arguments pris en ligne de commande devront être obligatoirement disposés dans l'ordre suivant: LAT -> LONG -> API_KEY. L'exécution type est la suivante :
 
-```
+```sh
 > python weatherWraper.py LAT LONG API_KEY
 ```
 ***
 <br />
 
 > ### **<u>Création du Dockerfile (fichier *Dockerfile*)</u>**
-> Le Dockerfile contient des instructions à exécutions séquentiels pour créer le container final. On distingue:
+Le Dockerfile contient des instructions à exécutions séquentiels pour créer le container final. On distingue:
 
-```
+```dockerfile
 FROM python:3.11
 ```
 - Cette instruction permet de spécifier l'image Docker à partir de laquelle notre container sera construite (ici l'image `python:3.11`).
 
-```
+```dockerfile
 ARG LAT
 ENV LAT=$LAT
 ARG LONG
@@ -49,25 +49,46 @@ ENV API_KEY=$API_KEY
 ```
 - L'instruction `ARG LAT` permet de définir une valeur pour la variable `LAT`. Ensuite l'instruction `ENV LAT=$LAT` permet d'initialiser la variable d'environnement `LAT` à partir de la valeur de la variable de `ARG LAT` précédemment déclarée. Le même mécanisme s'applique aux autres variables d'environnement. Plus d'informations [ici](https://vsupalov.com/docker-arg-env-variable-guide/#:~:text=ARG%20are%20also%20known%20as,access%20values%20of%20ARG%20variables.).
 
-```
+```dockerfile
 WORKDIR /app
 ```
 - Cette instruction spécifie le répertoire courant par défaut du container (ici `/app`).
 
-```
+```dockerfile
 COPY weatherWraper.py /app
 ```
 - Cette instruction effectue une copie du fichier `weatherWraper.py` dans le répertoire courant par défaut du container.
 
-```
+```dockerfile
 RUN pip install --no-cache-dir requests==2.29.0
 ```
 - Cette instruction exécute la commande d'installation de la version `2.29.0` du package Python `requests`. Le paramètre `--no-cache-dir` permet de nettoyer les métadonnées en cache générées par la commande (utile pour libérer de l'espace mémoire).
 
-```
+```dockerfile
 CMD ["sh", "-c", "python weatherWraper.py $LAT $LONG $API_KEY"]
 ```
 - Cette instruction exécute en mode `shell` la commande `python weatherWraper.py LAT LONG API_KEY`, tout en tenant compte des variables d'environnement définies dans le Dockerfile.
+  
+Voici le contenu du Dockerfile du TP1:
+  
+```dockerfile
+FROM python:3.11
+
+ARG LAT
+ENV LAT=$LAT
+ARG LONG
+ENV LONG=$LONG
+ARG API_KEY
+ENV API_KEY=$API_KEY
+
+WORKDIR /app
+
+COPY weatherWraper.py /app
+
+RUN pip install -r --no-cache-dir requests==2.29.0
+
+CMD ["sh", "-c", "python weatherWraper.py $LAT $LONG $API_KEY"]
+```
 
 <br />
 
@@ -77,14 +98,34 @@ CMD ["sh", "-c", "python weatherWraper.py $LAT $LONG $API_KEY"]
 
 ## **SCRIPT D'EXECUTION (FICHIER *setup.sh*)**
 Le script d'exécution est contenu dans le fichier `setup.sh`. Il suffit de l'exécuter pour créer le container à partir du Dockerfile et l'envoyer dans un registry. Il faut d'abord s'authentifier préalablement. Pour modifier le nom du registry ou le nom du container créer, il suffit de modifier les variables prédéfinies dans le fichier.
-```
+  
+```sh
 ####### VARIABLES ##########
 REGISTRY=frimpongefrei/api:1.0.0
 CONTAINER_NAME=api:1.0.0
 ```
 
-Pour exécuter le fichier, pocéder comme suit:
+Voici le contenu complet du fichier `setup.sh`:
+  
+```sh
+#!/bin/bash
+
+####### VARIABLES ##########
+REGISTRY=frimpongefrei/api:1.0.0
+CONTAINER_NAME=api:1.0.0
+
+####### EXECUTION ##########
+echo "CREATION DU CONTAINER $REGISTRY\n"
+docker build . -t $CONTAINER_NAME
+docker tag $CONTAINER_NAME $REGISTRY
+docker push $REGISTRY
+echo "FIN DU PROCESSUS\n"
+sleep 2
+clear
 ```
+
+Pour exécuter le fichier, pocéder comme suit:
+```sh
 > chmod u+x setup.sh
 > docker login -u myusername
 > sh setup.sh
@@ -99,8 +140,9 @@ Pour exécuter le fichier, pocéder comme suit:
 ## **TESTS TECHNIQUES**
 
 > ### **<u>Lint Errors</u>**
-> La commande suivante permet de passer en revue notre Dockerfile à la lumière d'un linter. Le linter utilisé est `hadolint` (l'image docker). Pour ce faire, il suffit d'exécuter la commande suivante.
-```
+La commande suivante permet de passer en revue notre Dockerfile à la lumière d'un linter. Le linter utilisé est `hadolint` (l'image docker). Pour ce faire, il suffit d'exécuter la commande suivante.
+  
+```sh
 > docker run --rm -i hadolint/hadolint < Dockerfile
 ```
 
@@ -110,8 +152,9 @@ Pour exécuter le fichier, pocéder comme suit:
 <br />
 
 > ### **<u>CVE checking</u>**
-> Cette étape nous permet de visualiser les différentes vulnérabilités présentes dans le container créé. Pour ce faire, exécuter la commande suivante (Sur MacOS):
-```
+Cette étape nous permet de visualiser les différentes vulnérabilités présentes dans le container créé. Pour ce faire, exécuter la commande suivante (Sur MacOS):
+
+```sh
 > brew install aquasecurity/trivy/trivy
 > trivy image maregistry/api:1.0.0
 ```
@@ -121,10 +164,11 @@ Pour exécuter le fichier, pocéder comme suit:
 <br />
 
 ## **DOCKER HUB**
-> L'image Docker de ce projet est `frimpongefrei/api:1.0.0`
+L'image Docker de ce projet est `frimpongefrei/api:1.0.0`
 
-> Exemple d'exécution:
-```
+Exemple d'exécution:
+
+```sh
 > docker pull frimpongefrei/api:1.0.0
 > docker run --env LAT="31.2504" --env LONG="-99.2506" --env API_KEY=**** frimpongefrei/api:1.0.0
 ```
