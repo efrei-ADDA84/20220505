@@ -24,7 +24,12 @@ jobs:
         - run: |
               docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/20220505:v1
               docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/20220505:v1
-
+        
+        - name: Ckecking des Lint errors avec Hadolint
+          uses: hadolint/hadolint-action@v3.1.0
+          with:
+            dockerfile: Dockerfile
+        
         - name: 'Deploy to Azure Container Instances'
           uses: 'azure/aci-deploy@v1'
           with:
