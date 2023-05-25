@@ -36,4 +36,5 @@ jobs:
                 registry-password: ${{ secrets.REGISTRY_PASSWORD }}
                 name: '20220505'
                 location: 'france central'
+                ports: 8081
 
