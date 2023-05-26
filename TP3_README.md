@@ -200,7 +200,7 @@ Le test des Lint errors est intégré au code de configuration `.yml` du `Workfl
 
 <br />
 
-## **DOCKER HUB**
+## **AZURE CONTAINER INSTANCE**
 L'image Docker s'exécute en container Docker dans une `Azure Container Instance` lié au ressources groupe **ADDA84-CTP**. 
 
 Pour exécuter le projet, exécuter dans un terminal les commandes `curl` pour effectuer les appels APIs. Si l'on souhaite obtenir les informations pour des coordonnées géographiques spécifiques (`lat=5.902785, lon=102.7542`), on entre la commande suivante qui génère un résultat au format JSON:
