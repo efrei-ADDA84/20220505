@@ -1,5 +1,5 @@
 on: [push]
-name: Deploy docker image on Azure
+name: Deploiement de l'image Docker sur Azure
 
 jobs:
     build-and-deploy:
