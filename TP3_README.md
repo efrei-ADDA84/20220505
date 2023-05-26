@@ -264,7 +264,25 @@ Pour exécuter le projet, exécuter dans un terminal les commandes `curl` pour e
 Aucune donnée sensible n'est stockée dans l'image ou dans le code source.
 
 <br />
+    
+***
+***
+    
+<br />
+    
+## **COMMENTAIRES GITHUB ACTIONS VS. CLI**
+L'utilisation d'une Github Action pour déployer une application présente plusieurs avantages par rapport à un déploiement manuel via l'interface utilisateur ou la CLI:
 
+- **Automatisation:** Avec une Github Action, le processus de déploiement de l'application est automatisé. À contrario, en CLI les tâches de déploiement sont répétitives par l'utilisateur et peut devenir pénible. GitHub Actions permet ainsi de gagner beaucoup de temps et réduire les erreurs humaines.
+
+- **Consistance:** Le processus de déploiement de GitHub Actions est toujours le même quelque soit la personne qui déploie. À contrario, en CLI, chaque utilisateur a sa manière de procéder au déploiement,ce qui n'est pas forcément conventionnel et uniforme.
+
+- **Historique:** GitHub Actions offre un historique de déploiement qui permet de voir les déploiements efféctués et ceux ayant échoués. Celà permet d'identifier plus facilement les sources d'anomalies. En CLI, l'historique n'est pas disponible une fois la CLI fermée.
+
+- **Sécurité:** L'utilisation d'une Github Action pour déployer votre application peut être plus sécurisée que le déploiement manuel via l'interface utilisateur ou la CLI. Vous pouvez configurer des vérifications de sécurité pour vous assurer que seules les personnes autorisées peuvent déployer des modifications sur votre application.
+
+<br />
+    
 ***
 ***
 
