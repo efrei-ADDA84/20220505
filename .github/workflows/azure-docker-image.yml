@@ -15,23 +15,10 @@ jobs:
           with:
               creds: ${{ secrets.AZURE_CREDENTIALS }}
               
-        #- name: Ckecking des Lint errors avec Hadolint
-        #  uses: hadolint/hadolint-action@v3.1.0
-        #  with:
-        #    dockerfile: Dockerfile
-        
-        - name: Install Hadolint
-          run: sudo apt-get update && sudo apt-get install -y hadolint
-
-        - name: Run Hadolint
-          run: hadolint Dockerfile
-
-        - name: Save Hadolint output
-          id: hadolint-output
-          run: echo "::set-output name=hadolint-output::$(hadolint Dockerfile 2>&1)"
-
-        - name: Use Hadolint output
-          run: echo "${{ steps.hadolint-output.outputs.hadolint-output }}"
+        - name: Ckecking des Lint errors avec Hadolint
+          uses: hadolint/hadolint-action@v3.1.0
+          with:
+            dockerfile: Dockerfile
 
         - name: 'Build and push image'
           uses: azure/docker-login@v1
