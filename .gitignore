@@ -1,1 +1,6 @@
 .DS_Store
+TP4-DevOps/.terraform
+TP4-DevOps/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.0.0/darwin_arm64/terraform-provider-azurerm_v3.0.0_x5
+TP4-DevOps/.terraform.lock.hcl
+TP4-DevOps/terraform.tfstate
+TP4-DevOps/terraform.tfstate.backup
