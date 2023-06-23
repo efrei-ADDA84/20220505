@@ -4,3 +4,4 @@ TP4-DevOps/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.0.0/da
 TP4-DevOps/.terraform.lock.hcl
 TP4-DevOps/terraform.tfstate
 TP4-DevOps/terraform.tfstate.backup
+TP4-DevOps/mykey.pem
