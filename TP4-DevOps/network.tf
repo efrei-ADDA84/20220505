@@ -1,19 +1,19 @@
-# Création de la ressource "azurerm_public_ip" pour l'adresse IP publique
+// Création de la ressource "azurerm_public_ip" pour l'adresse IP publique
 resource "azurerm_public_ip" "publicip" {
-  name                         = "20220505-public-ip"
-  location                     = var.REGION
-  resource_group_name          = var.RESOURCE_GROUP
-  allocation_method            = "Static"
+  name                = "20220505-public-ip"
+  location            = var.REGION
+  resource_group_name = var.RESOURCE_GROUP
+  allocation_method   = "Static"
 }
 
-# Récupération du virtual network name
+// Récupération du virtual network name
 data "azurerm_virtual_network" "networkvnet" {
-  name                 = "network-tp4"
-  resource_group_name  = var.RESOURCE_GROUP
+  name                = "network-tp4"
+  resource_group_name = var.RESOURCE_GROUP
 }
 
 
-# Récupération du subnet ID
+// Récupération du subnet ID
 data "azurerm_subnet" "network-subnet" {
   name                 = "internal"
   resource_group_name  = var.RESOURCE_GROUP
@@ -21,7 +21,7 @@ data "azurerm_subnet" "network-subnet" {
 }
 
 
-# Création de la ressource "azurerm_network_interface" pour l'interface réseau
+// Création de la ressource "azurerm_network_interface" pour l'interface réseau
 resource "azurerm_network_interface" "networkinterface" {
   name                = "20220505-network-interface"
   location            = var.REGION
